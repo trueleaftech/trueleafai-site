@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Company Profile – True Leaf AI Solutions Inc.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Company profile for True Leaf AI Solutions Inc., a BC-based AI micro-apps and tooling studio."
+  />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍁</text></svg>"
+  />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: rgba(15, 23, 42, 0.96);
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.16);
+      --accent-2: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --max-width: 900px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      background:var(--bg-soft);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      position:relative;
+      overflow-x:hidden;
+    }
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      inset:-10%;
+      pointer-events:none;
+      z-index:-2;
+      background-repeat:no-repeat;
+      opacity:.6;
+      mix-blend-mode:screen;
+    }
+    body::before{
+      background-image:
+        radial-gradient(circle at 0 0,#1d263f 0,transparent 55%),
+        radial-gradient(circle at 100% 0,#041955 0,transparent 55%),
+        radial-gradient(circle at 0 100%,#14532d 0,transparent 55%),
+        radial-gradient(circle at 100% 100%,#451a03 0,transparent 60%);
+    }
+    body::after{
+      background-image:
+        conic-gradient(from 200deg at 15% 25%,rgba(248,113,113,.08),rgba(249,115,22,.22),rgba(234,179,8,.16),transparent 70%),
+        conic-gradient(from 40deg at 85% 75%,rgba(34,197,94,.06),rgba(74,222,128,.16),rgba(59,130,246,.2),transparent 72%);
+      filter:blur(2px);
+    }
+    .leaf-overlay{
+      position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='1.1' stroke-opacity='0.5'%3E%3Cpath d='M60 6l6 16 15-7-4 16 16 1-12 11 12 11-16 1 4 16-15-7-6 16-6-16-15 7 4-16-16-1 12-11-12-11 16-1-4-16 15 7z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size:220px;background-repeat:repeat;
+    }
+    header{
+      position:sticky;top:0;z-index:10;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(to bottom,rgba(15,23,42,.96),rgba(15,23,42,.75),transparent);
+      border-bottom:1px solid rgba(148,163,184,.25);
+    }
+    .nav{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-size:.9rem;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+    }
+    .brand-mark{
+      width:30px;height:30px;border-radius:40%;
+      background:radial-gradient(circle at 25% 0,#facc15,#f97316);
+      display:inline-flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 1px rgba(248,250,252,.06),0 10px 22px rgba(15,23,42,.9);
+      font-size:18px;
+    }
+    .brand-text{display:flex;flex-direction:column;line-height:1.1}
+    .brand-name{font-weight:650;font-size:.95rem;letter-spacing:.03em}
+    .brand-tag{font-size:.75rem;color:var(--muted)}
+    .nav a{
+      color:var(--muted);text-decoration:none;
+    }
+    .nav a:hover{color:var(--text);text-decoration:underline}
+    main{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:26px 18px 40px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:4px 10px;
+      border-radius:var(--radius-pill);
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.55);
+      font-size:.78rem;
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+    .pill span.icon{
+      width:20px;height:20px;border-radius:999px;
+      background:radial-gradient(circle at 0 0,#bbf7d0,#22c55e);
+      display:inline-flex;align-items:center;justify-content:center;
+      font-size:12px;color:#022c22;
+      box-shadow:0 6px 12px rgba(22,163,74,.6);
+    }
+    h1{
+      font-size:clamp(1.9rem,2.6vw,2.4rem);
+      margin-bottom:6px;
+    }
+    .accent{color:var(--accent);}
+    .sub{
+      font-size:.96rem;
+      color:var(--muted);
+      max-width:640px;
+      margin-bottom:18px;
+    }
+    .card{
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border-subtle);
+      background:var(--card);
+      padding:18px 16px 14px;
+      margin-top:18px;
+      box-shadow:0 18px 34px rgba(15,23,42,.8);
+    }
+    .card h2{
+      font-size:1rem;
+      margin-bottom:6px;
+    }
+    p{font-size:.9rem;color:var(--muted);margin-bottom:8px;}
+    dl{font-size:.88rem;color:var(--muted);}
+    dt{font-weight:600;color:var(--text);margin-top:8px;}
+    dd{margin-left:0;}
+    .grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+      gap:18px;
+      margin-top:14px;
+    }
+    @media (max-width:800px){
+      .grid{grid-template-columns:minmax(0,1fr);}
+    }
+    .section-title{
+      font-size:1rem;
+      margin-bottom:4px;
+    }
+    .pill-row{
+      display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;
+    }
+    .pill-small{
+      font-size:.78rem;
+      padding:4px 8px;
+      border-radius:var(--radius-pill);
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.6);
+      color:var(--muted);
+    }
+    .footer{
+      border-top:1px solid rgba(148,163,184,.5);
+      padding:14px 18px 22px;
+      font-size:.8rem;
+      color:var(--muted);
+      max-width:var(--max-width);
+      margin:0 auto 10px;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;
+      margin-top:14px;
+      padding:8px 14px;
+      border-radius:var(--radius-pill);
+      border:1px solid rgba(148,163,184,.55);
+      background:rgba(15,23,42,.85);
+      color:var(--text);
+      font-size:.85rem;
+      text-decoration:none;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 24px rgba(15,23,42,.8);
+    }
+    .btn-primary{
+      border-color:rgba(249,115,22,.7);
+      background:linear-gradient(135deg,rgba(249,115,22,.95),rgba(251,146,60,.95));
+      color:#111827;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <div class="leaf-overlay" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-mark">🍁</div>
+        <div class="brand-text">
+          <span class="brand-name">True Leaf AI</span>
+          <span class="brand-tag">Company Profile</span>
+        </div>
+      </div>
+      <a href="/index.html">← Back to main site</a>
+    </div>
+  </header>
+
+  <main>
+    <span class="pill">
+      <span class="icon">CA</span>
+      BC Incorporated • Company profile • 2025
+    </span>
+
+    <h1>Company Profile — <span class="accent">True Leaf AI Solutions Inc.</span></h1>
+    <p class="sub">
+      This profile summarizes the legal, operational, and product context for True Leaf AI Solutions Inc.,
+      a British Columbia–incorporated AI micro-apps and tooling studio.
+    </p>
+
+    <div class="card">
+      <h2>1. Company overview</h2>
+      <p>
+        True Leaf AI Solutions Inc. is a British Columbia–based technology company focused on building
+        practical, lightweight AI tools and micro-applications. The company operates as a one-founder
+        studio experimenting with domain-specific assistants, decision helpers, and workflow accelerators.
+      </p>
+      <p>
+        The core philosophy is simple: use modern AI models to generate structured, focused tools that
+        solve one real problem at a time, and make them accessible via the web, ChatGPT Apps, and
+        programmatic APIs.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>2. Corporate details</h2>
+        <dl>
+          <dt>Legal name</dt>
+          <dd>True Leaf AI Solutions Inc.</dd>
+
+          <dt>Incorporation number</dt>
+          <dd>BC1562816 (Province of British Columbia)</dd>
+
+          <dt>Business Number (BN)</dt>
+          <dd>758822431BC0001</dd>
+
+          <dt>Jurisdiction</dt>
+          <dd>British Columbia, Canada</dd>
+
+          <dt>Structure</dt>
+          <dd>BC Limited Company (closely held, one-founder)</dd>
+
+          <dt>Primary focus</dt>
+          <dd>AI micro-apps, domain prompt systems, and tooling integrations.</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <h2>3. Founder</h2>
+        <p>
+          <strong>Mithun Gurusiddappa</strong> is the founder and director of True Leaf AI Solutions Inc.
+          He brings over 13 years of experience as a Senior Software Engineer across BFSI, health
+          insurance, and large-scale enterprise systems.
+        </p>
+        <p>
+          His expertise spans backend engineering (Java, Spring Boot), distributed systems, and
+          modern frontend development (React, Vite, Tailwind), with a strong recent focus on
+          large language models, prompt engineering, and local AI tooling.
+        </p>
+        <div class="pill-row">
+          <span class="pill-small">13+ years engineering experience</span>
+          <span class="pill-small">Hands-on founder</span>
+          <span class="pill-small">AI & micro-app experimentation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>4. Products & focus areas</h2>
+      <p>
+        True Leaf AI operates as a product studio exploring multiple AI-first directions that can be
+        developed and operated by a single founder.
+      </p>
+      <p class="section-title">4.1 Domain Prompt Builder (DPB)</p>
+      <p>
+        A schema-driven system for building “domain tickets” — structured definitions that describe
+        a problem space (e.g., laptop purchase, job search, television selection) and generate
+        reusable prompt workflows and micro-app UIs.
+      </p>
+
+      <p class="section-title">4.2 Plethora micro-apps</p>
+      <p>
+        A growing collection of narrow, high-utility micro-apps focused on decision-making and
+        planning: electronics purchases, personal finance helpers, planning aides, and more.
+      </p>
+
+      <p class="section-title">4.3 ChatGPT & API integrations</p>
+      <p>
+        Experiments and future offerings that wrap DPB and Plethora micro-apps into ChatGPT SDK Apps,
+        connectors, and API endpoints for programmatic use.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>5. Technology stack</h2>
+      <p>
+        True Leaf AI combines traditional software engineering discipline with modern AI tooling:
+      </p>
+      <ul style="font-size:.88rem;color:var(--muted);padding-left:18px;margin-top:4px;">
+        <li>Languages: Java, JavaScript/TypeScript, Python</li>
+        <li>Backend: Spring Boot, REST APIs</li>
+        <li>Frontend: React, Vite, Tailwind CSS</li>
+        <li>AI: OpenAI GPT models, experimentation with local LLMs</li>
+        <li>Tooling: GitHub, GitHub Pages, CI/CD, container-based workflows (future)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>6. Contact & correspondence</h2>
+      <p>
+        This company profile is intended for banks, partners, vendors, grant bodies, and other entities
+        requiring a concise overview of True Leaf AI Solutions Inc.
+      </p>
+      <p>
+        For any official correspondence, partnership discussions, pilot projects, or documentation
+        requests, please use the contact details below.
+      </p>
+      <p>
+        ✉️ Email: <a href="mailto:info@trueleafai.ca" style="color:#bfdbfe;text-decoration:none;">info@trueleafai.ca</a><br />
+        🌐 Website: <a href="https://trueleafai.ca" style="color:#bfdbfe;text-decoration:none;">trueleafai.ca</a><br />
+        📍 Location: British Columbia, Canada
+      </p>
+      <a href="/index.html" class="btn">← Back to main site</a>
+      <a href="mailto:info@trueleafai.ca" class="btn btn-primary">✉️ Contact the founder</a>
+    </div>
+  </main>
+
+  <div class="footer">
+    © <span id="year"></span> True Leaf AI Solutions Inc. • BC1562816 • BN 758822431BC0001 • British Columbia, Canada.
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
