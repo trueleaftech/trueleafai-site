@@ -1,51 +1,858 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>True Leaf AI Solutions Inc.</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="True Leaf AI Solutions Inc. — BC-based AI software & micro-apps.">
-  <meta property="og:title" content="True Leaf AI Solutions Inc.">
-  <meta property="og:description" content="BC-based AI software & micro-apps.">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="True Leaf AI Solutions Inc. — BC-based AI company building practical AI micro-apps and tools."
+  />
+
+  <!-- Favicon (simple maple leaf emoji) -->
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍁</text></svg>"
+  />
+
   <style>
-    :root { --fg:#0f172a; --muted:#475569; --bg:#f8fafc; --card:#ffffff; --accent:#0ea5e9; }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;font:16px/1.6 system-ui,Segoe UI,Roboto,Helvetica,Arial;background:linear-gradient(180deg,#f8fafc,#eef2f7);}
-    .wrap{min-height:100%;display:grid;place-items:center;padding:48px}
-    .card{max-width:720px;width:100%;background:var(--card);border:1px solid #e2e8f0;border-radius:20px;padding:40px 36px;box-shadow:0 10px 30px rgba(2,8,23,.06)}
-    h1{margin:0 0 8px;font-size:clamp(28px,4vw,40px);color:var(--fg);letter-spacing:.2px}
-    .tag{display:inline-block;margin:.25rem 0 1rem;padding:.25rem .6rem;border-radius:999px;background:#e0f2fe;color:#0369a1;font-weight:600;font-size:.85rem}
-    p{margin:.4rem 0;color:var(--muted)}
-    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid #e2e8f0;background:#fff;text-decoration:none;color:var(--fg);transition:.2s}
-    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(2,8,23,.08)}
-    .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-    footer{margin-top:28px;font-size:.85rem;color:#94a3b8}
-    code{background:#f1f5f9;padding:2px 6px;border-radius:6px}
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #0f172a;
+      --card: rgba(15, 23, 42, 0.9);
+      --card-soft: rgba(15, 23, 42, 0.8);
+      --accent: #f97316; /* warm maple/orange */
+      --accent-soft: rgba(249, 115, 22, 0.18);
+      --accent-2: #22c55e; /* green leaf */
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.65);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== BACKGROUND: CANADIAN FALL FOLIAGE ===== */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -10%;
+      pointer-events: none;
+      z-index: -2;
+      background-repeat: no-repeat;
+      opacity: 0.55;
+      mix-blend-mode: screen;
+    }
+
+    /* soft gradients for sky + forest tones */
+    body::before {
+      background-image:
+        radial-gradient(circle at 10% 0%, #1d263f 0, transparent 55%),
+        radial-gradient(circle at 90% 10%, #041955 0, transparent 55%),
+        radial-gradient(circle at 0% 100%, #14532d 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, #451a03 0, transparent 60%);
+    }
+
+    /* layered abstract maple-leaf-esque shapes using conic gradients */
+    body::after {
+      background-image:
+        conic-gradient(
+          from 200deg at 15% 25%,
+          rgba(248, 113, 113, 0.06),
+          rgba(249, 115, 22, 0.18),
+          rgba(234, 179, 8, 0.12),
+          transparent 70%
+        ),
+        conic-gradient(
+          from 40deg at 80% 70%,
+          rgba(34, 197, 94, 0.05),
+          rgba(74, 222, 128, 0.12),
+          rgba(59, 130, 246, 0.16),
+          transparent 72%
+        );
+      filter: blur(2px);
+    }
+
+    /* faint maple leaf overlay on top portion */
+    .leaf-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.14;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='1.1' stroke-opacity='0.5'%3E%3Cpath d='M60 6l6 16 15-7-4 16 16 1-12 11 12 11-16 1 4 16-15-7-6 16-6-16-15 7 4-16-16-1 12-11-12-11 16-1-4-16 15 7z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px;
+      background-repeat: repeat;
+      background-position: 0 0;
+    }
+
+    /* ===== LAYOUT ===== */
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 40%;
+      background: radial-gradient(circle at 25% 0%, #facc15, #f97316);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.07),
+        0 12px 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .brand-mark span {
+      font-size: 20px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-name {
+      font-weight: 650;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.65);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-cta {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(248, 250, 252, 0.1);
+      background: radial-gradient(circle at 0 0, rgba(250, 250, 249, 0.18), transparent),
+        linear-gradient(to right, rgba(239, 68, 68, 0.7), rgba(249, 115, 22, 0.9));
+      color: #f9fafb !important;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 14px 32px rgba(148, 27, 45, 0.55);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
+      align-items: center;
+      padding-top: 40px;
+    }
+
+    @media (max-width: 840px) {
+      .nav {
+        flex-wrap: wrap;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 22px;
+      }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 6px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    .pill span.icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, #bbf7d0, #22c55e);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #022c22;
+      box-shadow: 0 8px 16px rgba(22, 163, 74, 0.6);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 3.1vw, 2.9rem);
+      line-height: 1.12;
+      margin-bottom: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .title-accent {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 20px;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.86);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .btn-primary {
+      border-color: rgba(249, 115, 22, 0.7);
+      background: linear-gradient(
+        135deg,
+        rgba(249, 115, 22, 0.95),
+        rgba(251, 146, 60, 0.95)
+      );
+      color: #111827;
+      box-shadow: 0 16px 30px rgba(249, 115, 22, 0.55);
+      font-weight: 600;
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.7);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .hero-right {
+      position: relative;
+      padding: 14px;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.05), transparent),
+        var(--card);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-panel h2 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-panel p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .mini-pill {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 4px 9px;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+    }
+
+    .stat {
+      flex: 1;
+      background: linear-gradient(
+        145deg,
+        rgba(15, 23, 42, 0.9),
+        rgba(30, 64, 175, 0.75)
+      );
+      border-radius: 14px;
+      padding: 9px 10px;
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      color: #e5e7eb;
+    }
+
+    .stat span.label {
+      font-size: 0.75rem;
+      color: #cbd5f5;
+    }
+
+    .stat span.value {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .maple-strip {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(249, 115, 22, 0.6);
+      font-size: 0.76rem;
+      color: #fed7aa;
+      background: linear-gradient(
+        to right,
+        rgba(248, 113, 113, 0.16),
+        rgba(249, 115, 22, 0.35),
+        rgba(234, 179, 8, 0.16)
+      );
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* ===== CONTENT SECTIONS ===== */
+
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 620px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 840px) {
+      .grid-cols-3,
+      .grid-cols-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: var(--card-soft);
+      padding: 16px 16px 14px;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.7);
+    }
+
+    .card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 3px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: rgba(21, 128, 61, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.8);
+      font-size: 0.73rem;
+      color: #bbf7d0;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .pill-item {
+      font-size: 0.74rem;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    dl {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    dt {
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    dd {
+      margin-left: 0;
+    }
+
+    .contact-card {
+      margin-top: 10px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 14px 16px;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.12), transparent),
+        rgba(15, 23, 42, 0.93);
+      font-size: 0.86rem;
+    }
+
+    .contact-card a {
+      color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      border-top: 1px solid rgba(30, 64, 175, 0.8);
+      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.4), #020617);
+      padding: 16px 20px 26px;
+      margin-top: 18px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-inner span strong {
+      color: #e5e7eb;
+    }
   </style>
 </head>
+
 <body>
-  <main class="wrap">
-    <section class="card" role="region" aria-label="Company intro">
-      <span class="tag">BC Incorporated • 2025</span>
-      <h1>True Leaf AI Solutions Inc.</h1>
-      <p>We build practical, lightweight AI micro-apps and tooling for real-world workflows. A simple stack, privacy-first, and designed to ship.</p>
-      <p><strong>Status:</strong> Website under construction. For more information, reach us below.</p>
+  <div class="leaf-overlay" aria-hidden="true"></div>
 
-      <div class="row">
-        <a class="btn primary" href="mailto:info@trueleafai.ca">✉️  Email us</a>
-        <a class="btn" href="#" aria-disabled="true">🔗 Prompt Builder (coming soon)</a>
-        <a class="btn" href="/assets/Company_Profile.pdf" aria-disabled="true">📄 Company profile</a>
+  <div class="page">
+    <header>
+      <nav class="nav">
+        <div class="brand">
+          <div class="brand-mark">
+            <span>🍁</span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">True Leaf AI</span>
+            <span class="brand-tag">BC • AI Micro-Apps Studio</span>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#products">Products</a>
+          <a href="#company">Company</a>
+          <a href="#contact" class="nav-cta">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="section hero" id="top">
+        <div>
+          <div class="pill">
+            <span class="icon">CA</span>
+            BC-Incorporated • 2025 • Maple-rooted AI
+          </div>
+          <h1>
+            Practical <span class="title-accent">AI micro-apps</span><br />
+            rooted in Canadian code.
+          </h1>
+          <p class="hero-sub">
+            True Leaf AI Solutions Inc. is a British Columbia–based studio building small,
+            sharp, AI-powered tools that actually ship: from decision helpers to
+            workflow accelerators, deployed on the web and inside ChatGPT.
+          </p>
+
+          <div class="hero-grid">
+            <div class="chip"><span class="chip-dot"></span> BC Limited Company • BN 758822431</div>
+            <div class="chip">🍁 Built in Canada, for a global audience</div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="mailto:info@trueleafai.ca" class="btn btn-primary">
+              ✉️ Talk to the founder
+            </a>
+            <a href="#products" class="btn btn-outline">
+              🌐 Explore products
+            </a>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-item">Focus: AI micro-apps & prompt-native tools</div>
+            <div class="meta-item">Status: Early-stage, actively building</div>
+          </div>
+        </div>
+
+        <!-- Right side: company snapshot card -->
+        <div class="hero-right">
+          <div class="hero-panel">
+            <h2>Company snapshot</h2>
+            <p>
+              Fast, lean, one-founder Canadian company exploring the edges of
+              AI tooling and domain-specific assistants.
+            </p>
+
+            <div class="pill-row">
+              <span class="mini-pill">Domain Prompt Builder (DPB)</span>
+              <span class="mini-pill">Plethora micro-apps</span>
+              <span class="mini-pill">ChatGPT SDK apps</span>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat">
+                <span class="label">Foundation</span>
+                <span class="value">BC1562816</span>
+              </div>
+              <div class="stat">
+                <span class="label">BN</span>
+                <span class="value">758822431</span>
+              </div>
+            </div>
+
+            <div class="maple-strip">
+              <span>🍁 Built and operated from British Columbia, with a subtle obsession for fall foliage and clean code.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT / PRODUCTS -->
+      <section class="section" id="products">
+        <h2 class="section-title">Products & focus areas</h2>
+        <p class="section-sub">
+          True Leaf AI explores a simple idea: use large models to generate structured,
+          focused micro-experiences that solve one problem really well.
+        </p>
+
+        <div class="grid grid-cols-3">
+          <article class="card">
+            <div class="badge">DPB Engine</div>
+            <h3>Domain Prompt Builder (DPB)</h3>
+            <p>
+              A schema-driven system for turning messy, raw prompts into reusable,
+              deeply-structured “domain kits” for specific problems — like laptop
+              purchasing, job search, or planning.
+            </p>
+            <div class="pill-list">
+              <span class="pill-item">Schema-first prompts</span>
+              <span class="pill-item">Domain tickets</span>
+              <span class="pill-item">LLM-ready JSON</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="badge">Micro-apps</div>
+            <h3>Plethora AI micro-apps</h3>
+            <p>
+              A growing forest of lightweight, single-purpose tools — calculators,
+              decision helpers, planners — each backed by DPB and deployed to the web
+              and ChatGPT Apps.
+            </p>
+            <div class="pill-list">
+              <span class="pill-item">Laptop / TV purchase guides</span>
+              <span class="pill-item">Financial helpers</span>
+              <span class="pill-item">Planning assistants</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="badge">Integration</div>
+            <h3>ChatGPT & API integrations</h3>
+            <p>
+              Experiments and future offerings that package True Leaf’s domains and micro-apps into
+              ChatGPT Apps, APIs, and embeddable widgets.
+            </p>
+            <div class="pill-list">
+              <span class="pill-item">ChatGPT SDK apps</span>
+              <span class="pill-item">Connectors & MCP</span>
+              <span class="pill-item">API-ready outputs</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- COMPANY INFO -->
+      <section class="section" id="company">
+        <h2 class="section-title">Company & founder</h2>
+        <p class="section-sub">
+          True Leaf AI Solutions Inc. is intentionally small, focused, and engineering-led.
+          The company is built as a long-term vehicle for experimental, but deeply practical, AI software.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Corporate details</h3>
+            <dl>
+              <dt>Legal name</dt>
+              <dd>True Leaf AI Solutions Inc.</dd>
+
+              <dt>Incorporation number</dt>
+              <dd>BC1562816 (Province of British Columbia)</dd>
+
+              <dt>Business Number (BN)</dt>
+              <dd>758822431BC0001</dd>
+
+              <dt>Jurisdiction</dt>
+              <dd>British Columbia, Canada</dd>
+
+              <dt>Structure</dt>
+              <dd>BC Limited Company (one-founder, closely held)</dd>
+            </dl>
+          </div>
+
+          <div class="card">
+            <h3>Founder</h3>
+            <p>
+              <strong>Mithun Gurusiddappa</strong> — Senior Software Engineer with 13+ years of
+              experience across BFSI, health insurance, and large-scale enterprise systems.
+              Now focused on building AI-powered tools and micro-apps as a Canadian founder.
+            </p>
+            <p>
+              Background in Java, Spring Boot, distributed systems, and modern frontend stacks,
+              with a growing toolkit around LLMs, prompt engineering, and local AI workflows.
+            </p>
+            <div class="pill-list">
+              <span class="pill-item">Hands-on engineering</span>
+              <span class="pill-item">One-person product studio</span>
+              <span class="pill-item">AI tooling & infrastructure</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card" id="contact">
+          <strong>Contact & partnerships</strong><br />
+          For collaboration, pilots, consulting, or questions about True Leaf AI and the Plethora micro-apps:
+          <br /><br />
+          ✉️ Email: <a href="mailto:info@trueleafai.ca">info@trueleafai.ca</a><br />
+          🌐 Website: <a href="https://trueleafai.ca">trueleafai.ca</a><br />
+          📍 Based in British Columbia, Canada
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>
+          © <span id="year"></span>
+          <strong>True Leaf AI Solutions Inc.</strong> — rooted in Canada, shipping worldwide.
+        </span>
+        <span>BN: 758822431 • Inc. No.: BC1562816</span>
       </div>
+    </footer>
+  </div>
 
-      <footer>
-        © <span id="y"></span> True Leaf AI Solutions Inc. • British Columbia, Canada.<br>
-        BN: <code>758822431BC0001</code> • This site uses no cookies or trackers.
-      </footer>
-    </section>
-  </main>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
